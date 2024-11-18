@@ -22,6 +22,11 @@ sudo apt install curl build-essential pkg-config libssl-dev git wget jq make gcc
 wget "https://github.com/fractal-bitcoin/fractald-release/releases/download/v$VERSION/fractald-$VERSION-x86_64-linux-gnu.tar.gz" || { echo "Failed to download fractald"; exit 1; }
 tar -zxvf "fractald-$VERSION-x86_64-linux-gnu.tar.gz" || { echo "Failed to extract fractald"; exit 1; }
 
+if [ ! -d "$INSTALL_DIR" ]; then
+    echo "Installation directory $INSTALL_DIR does not exist. Creating it..."
+    sudo mkdir -p "$INSTALL_DIR" || { echo "Failed to create directory $INSTALL_DIR"; exit 1; }
+fi
+
 echo "Moving extracted directory..."
 
 mv "fractald-$VERSION-x86_64-linux-gnu" "$INSTALL_DIR/" || { echo "Failed to move fractald to $INSTALL_DIR"; exit 1; }
